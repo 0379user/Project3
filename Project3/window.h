@@ -17,7 +17,6 @@ namespace Core
 	public:
 		Window(const Window&) = delete;
 		Window& operator=(const Window&) = delete;
-
 	private:
 		Window(const std::string& str, int w, int h);
 		~Window();
@@ -25,7 +24,7 @@ namespace Core
 		static Window& getInstance() { static Window instance("Window", 1280, 720); return instance; }
 		void init(const std::string &str, int w, int h);
 		GLFWwindow* getGLFWwindow() const;
-
+	public:
 		void setfnCallback(const std::function<void(Event&)> & fn) { fnCallback = fn; }
 	public:	
 		static void mouseMovedCallback(GLFWwindow* window, double x, double y);

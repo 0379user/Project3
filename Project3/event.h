@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <string>
 
 namespace Core
@@ -31,6 +30,7 @@ namespace Core
 		virtual ~Event() = default;
 		inline std::string getName()const { return name; }
 		inline EventType getType()const { return type; }
+	public:
 		virtual std::string format() const = 0;
 	};
 

@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project3", "Project3\Project3.vcxproj", "{0B612A10-C71D-41A4-B207-FB9E0D0F814B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "serialization", "serialization\serialization.vcxproj", "{988B8AB9-F704-472F-B832-3A9FCC4DD32F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{0B612A10-C71D-41A4-B207-FB9E0D0F814B}.Release|x64.Build.0 = Release|x64
 		{0B612A10-C71D-41A4-B207-FB9E0D0F814B}.Release|x86.ActiveCfg = Release|Win32
 		{0B612A10-C71D-41A4-B207-FB9E0D0F814B}.Release|x86.Build.0 = Release|Win32
+		{988B8AB9-F704-472F-B832-3A9FCC4DD32F}.Debug|x64.ActiveCfg = Debug|x64
+		{988B8AB9-F704-472F-B832-3A9FCC4DD32F}.Debug|x64.Build.0 = Debug|x64
+		{988B8AB9-F704-472F-B832-3A9FCC4DD32F}.Debug|x86.ActiveCfg = Debug|Win32
+		{988B8AB9-F704-472F-B832-3A9FCC4DD32F}.Debug|x86.Build.0 = Debug|Win32
+		{988B8AB9-F704-472F-B832-3A9FCC4DD32F}.Release|x64.ActiveCfg = Release|x64
+		{988B8AB9-F704-472F-B832-3A9FCC4DD32F}.Release|x64.Build.0 = Release|x64
+		{988B8AB9-F704-472F-B832-3A9FCC4DD32F}.Release|x86.ActiveCfg = Release|Win32
+		{988B8AB9-F704-472F-B832-3A9FCC4DD32F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
