@@ -7,7 +7,7 @@ int main()
 {
 	Core::Window& window = Core::Window::getInstance();
 
-	while (true)
+	while (!glfwWindowShouldClose(window.getGLFWwindow()))
 	{
 		glfwPollEvents();
 		glfwSwapBuffers(window.getGLFWwindow());

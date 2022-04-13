@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\Users\User\source\repos\Project3\Project3\dep\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\e8999\source\repos\Project3\Project3\dep\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -144,11 +144,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="---.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="event.h" />
+    <ClInclude Include="windoweven.h" />
+    <ClInclude Include="keyboardevent.h" />
     <ClInclude Include="mouseevent.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
