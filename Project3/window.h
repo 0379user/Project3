@@ -15,6 +15,7 @@ namespace Core
 	public:
 		Window(const Window&) = delete;
 		Window& operator=(const Window&) = delete;
+
 	private:
 		Window(std::string str, int w, int h);
 		~Window();
