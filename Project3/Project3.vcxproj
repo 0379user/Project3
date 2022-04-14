@@ -72,11 +72,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\Users\e8999\source\repos\Project3\Project3\dep\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\User\source\repos\Project3\Project3\dep\lib;C:\Users\e8999\source\repos\Project3\Project3\dep\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>C:\Users\User\source\repos\Project3\Project3\dep\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\User\source\repos\Project3\Project3\dep\lib;C:\Users\User\source\repos\Project3\Project3\dep\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -144,10 +144,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="system.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="event.h" />
+    <ClInclude Include="system.h" />
     <ClInclude Include="windoweven.h" />
     <ClInclude Include="keyboardevent.h" />
     <ClInclude Include="mouseevent.h" />
