@@ -19,24 +19,24 @@ namespace Core
 			WINDOW_CLOSE_EVENT
 		};
 	protected:
-		//System* system;
+		System* system;
 		EventType type;
 		std::string name;
 	protected:
 		Event(std::string name, EventType type)
 			:
-		//	system(nullptr),
+			system(nullptr),
 			name(name),
 			type(type){}
 	public:
 		virtual ~Event() = default;
 		inline std::string getName()const { return name; }
 		inline EventType getType()const { return type; }
-		/*void bind(System* system, Event* e) 
+		void bind(System* system, Event* e) 
 		{
 			this->system = system;
 			this->system->events.push_back(e);
-		}*/
+		}
 	public:
 		virtual std::string format() const = 0;
 	};

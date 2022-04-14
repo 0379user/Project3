@@ -8,7 +8,7 @@
 
 int main()
 {
-#if 1
+#if 0
 
 	Core::Window& window = Core::Window::getInstance();
 
