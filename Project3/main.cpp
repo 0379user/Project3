@@ -8,7 +8,7 @@
 
 int main()
 {
-#if 0
+#if 1
 
 	Core::Window& window = Core::Window::getInstance();
 
@@ -19,8 +19,12 @@ int main()
 	}
 
 #endif
-	//Core::System system("sys");
-	//Core::Event* e = new Core::MouseScrolledEvent(1);
-	//system.addEvent(e);
+#if 0
+	Core::System system("sys");
+	Core::Event* e = new Core::MouseScrolledEvent(1);
+	system.addEvent(e);
+#endif
+
+
 	return 0;
 }

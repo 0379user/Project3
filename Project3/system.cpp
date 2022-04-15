@@ -1,5 +1,5 @@
 #include "system.h"
-
+#include "keyboardevent.h"
 
 namespace Core 
 {
@@ -14,21 +14,23 @@ System::~System()
 {
 //TODO::
 }
-void System::addEvent(Event* e)
+void System::addEvent(Event &e)
 {
-	//e->bind(this, e);
+	event_messedge.push_back(e.format());
+	 
+	//what is happening
 }
 
 Event* System::getEvent() 
 {
-	//return events.front();
+	return events.front();
 }
 bool System::isActive()
 {
-	//if(!system)
-//	{
-//		return false;
-//	}
+	if(!system)
+	{
+		return false;
+	}
 	return true;
 }
 

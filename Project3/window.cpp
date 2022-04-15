@@ -3,6 +3,8 @@
 #include "keyboardevent.h"
 #include <iostream>
 #include "windoweven.h"
+#include <fstream>
+
 namespace Core
 {
 	Window::Window(const std::string& str, int w, int h)
@@ -10,11 +12,24 @@ namespace Core
 		init(str, w, h);
 		setfnCallback([&](Event& e)
 			{
+
 				if (e.getType() == Event::EventType::WINDOW_CLOSE_EVENT)
 				{
 					glfwSetWindowShouldClose(window, GL_TRUE);
+
+					std::ofstream FILE("eventSystem.txt");
+					for (auto it=system->event_messedge.begin(); it!= system->event_messedge.end(); ++it)
+					{
+										
+						FILE <<* it << std::endl;
+					}
+					FILE << system->event_messedge.size();
+					std::cout << system->event_messedge.size();
+					FILE.close();
+					std::cout << system->events.size();
 				}
 				std::cout << e.format() << std::endl;
+				system->addEvent(e);
 			});
 	}
 
@@ -26,7 +41,7 @@ namespace Core
 		name = str;
 		width = w;
 		height = h;
-
+		system = new System("System");
 		if (!glfwInit())
 		{
 			_asm {int 3}

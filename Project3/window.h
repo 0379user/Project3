@@ -11,6 +11,7 @@ namespace Core
 	{
 	private:
 		GLFWwindow* window = nullptr;
+		System* system;
 		std::function<void(Event&)> fnCallback;
 		std::string name;
 		int width, height;
