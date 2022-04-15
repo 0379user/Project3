@@ -4,7 +4,8 @@
 #include "window.h"
 #include "system.h"
 #include "mouseevent.h"
-
+#include "objectmodel.h"
+#include <assert.h>
 
 int main()
 {
@@ -22,5 +23,8 @@ int main()
 	//Core::System system("sys");
 	//Core::Event* e = new Core::MouseScrolledEvent(1);
 	//system.addEvent(e);
+
+	//assert(Core::Util::isLittleEndian());
+
 	return 0;
 }

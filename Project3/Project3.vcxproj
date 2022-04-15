@@ -144,11 +144,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="objectmodel.cpp" />
     <ClCompile Include="system.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="event.h" />
+    <ClInclude Include="objectmodel.h" />
     <ClInclude Include="system.h" />
     <ClInclude Include="windoweven.h" />
     <ClInclude Include="keyboardevent.h" />
