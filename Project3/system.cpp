@@ -16,7 +16,7 @@ System::~System()
 }
 void System::addEvent(Event &e)
 {
-	event_messedge.push_back(e.format());
+	event_messege.push_back(e.format());
 	 
 	//what is happening
 }
@@ -25,14 +25,6 @@ Event* System::getEvent()
 {
 	return events.front();
 }
-bool System::isActive()
-{
-	if(!system)
-	{
-		return false;
-	}
-	return true;
-}
-
+ 
 
 }
