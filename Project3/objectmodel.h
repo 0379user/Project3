@@ -10,9 +10,32 @@ namespace Core
 
 	namespace Util
 	{
-		bool isLittleEndian();
-		void save(const  char* file, std::vector<int8_t> buffer);
-		void retriveNsave(Core::Root* r);
+		bool isLittleEndian()
+		{
+			int8_t a = 5; // 0101
+			std::string result = std::bitset<8>(a).to_string();
+			if (result.back() == '1')
+				return true;
+		}
+
+		void save(const  char* file, std::vector<int8_t> buffer)
+		{
+			std::ofstream out(file);
+			for (unsigned i = 0; i < buffer.size(); i++)
+			{
+				out << buffer[i];
+			}
+			out.close();
+		}
+		
+		void retriveNsave(Core::Root* r)
+		{
+			int16_t iterator = 0;
+			std::vector<int8_t> buffer(r->getSize());
+			std::string name = r->getName().substr(0, r->getName().size()).append(".ttc");
+			r->pack(&buffer, &iterator);
+			save(name.c_str(), buffer);
+		}
 	}
 	template<typename T>
 	void encode(std::vector<int8_t>* buffer, int16_t* iterator, T value)
@@ -113,7 +136,7 @@ public:
 		p->data = new std::vector<int8_t>(sizeof(value));
 		p->size += p->data->size();
 		int16_t iterator = 0;
-		Core::template encode(p->data, &iterator, value);
+		Core::template encode<T>(p->data, &iterator, value);
 
 		return p;
 	}
@@ -121,7 +144,26 @@ public:
 
 class Array : public Root
 {
+public:
+	Array() {}
+	template<typename T>
+	static Array createArray(std::string name, Type type, std::vector<T> value)
+	{
+		Array* p = new Array();
+		p->setName(name);
+		p->wrapper = static_cast<int8_t>(Wrapper::ARRAY);
+		p->type = static_cast<int8_t>(type);
+		p->data = new std::vector<int8_t>(value.size()*sizeof(value));
+		p->size += value.size() * sizeof(value);
+		int16_t iterator = 0;
+		Core::template encode<T>(p->data, &iterator, value);
 
+		return p;
+	}
+private:
+	int8_t type;
+	int32_t count;
+	std::vector<int8_t>* data;
 };
 
 class Object : public Root
@@ -138,39 +180,7 @@ class Object : public Root
 
 namespace Core
 {
-	namespace Util
-	{
-		bool isLittleEndian()
-		{
-			int8_t a = 5; // 0101
-			std::string result = std::bitset<8>(a).to_string();
-			if (result.back() == '1')
-				return true;
-		}
-
-		void save(const  char* file, std::vector<int8_t> buffer)
-		{
-			std::ofstream out(file);
-			for (unsigned i = 0; i < buffer.size(); i++)
-			{
-				out << buffer[i];
-			}
-			out.close();
-		}
-
-		void retriveNsave(Core::Root* r)
-		{
-			int16_t iterator = 0;
-			std::vector<int8_t> buffer(r->getSize());
-			std::string name = r->getName().substr(0, r->getName().size()).append(".ttc");
-			r->pack(&buffer, &iterator);
-			save(name.c_str(), buffer);
-		}
-	}
-
-
-
-	Root::Root()
+   	Root::Root()
 		:
 		name("unknown"),
 		wrapper(0),
@@ -212,4 +222,6 @@ namespace Core
 
 	}
 
+
+	
 }

@@ -24,7 +24,7 @@ int main()
 	//Core::Event* e = new Core::MouseScrolledEvent(1);
 	//system.addEvent(e);
 
-	//assert(Core::Util::isLittleEndian());
+	//assert(Core::Util::isLittleEndian()); 
 
 	int foo = 5;
 	Core::Root* r = Core::Primitive::create("int32", Core::Type::I32, foo);

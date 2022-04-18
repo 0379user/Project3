@@ -7,6 +7,7 @@
 
 namespace Core
 {
+	class Event;
 	class System 
 	{
 	public:
