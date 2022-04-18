@@ -26,7 +26,8 @@ int main()
 
 	//assert(Core::Util::isLittleEndian());
 
-
-
+	int foo = 5;
+	Core::Root* r = Core::Primitive::create("int32", Core::Type::I32, foo);
+	Core::Util::retriveNsave(r);
 	return 0;
 }

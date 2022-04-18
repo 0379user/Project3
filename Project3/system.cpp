@@ -16,7 +16,7 @@ System::~System()
 }
 void System::addEvent(Event &e)
 {
-	event_messege.push_back(e.format());
+	//event_messege.push_back(e.format());
 	 
 	//what is happening
 }

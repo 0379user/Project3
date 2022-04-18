@@ -16,7 +16,8 @@ namespace Core
 		~System();
 		void addEvent(Event&);
 		Event* getEvent();
-		std::vector<std::string> event_messege;
+		//std::vector<std::string> event_messege;
+		 
 	private:
 		std::vector<Event*> events;
 		std::string name;

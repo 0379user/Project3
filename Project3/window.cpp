@@ -17,7 +17,7 @@ namespace Core
 				{
 					glfwSetWindowShouldClose(window, GL_TRUE);
 
-					std::ofstream FILE("eventSystem.txt");
+					/*std::ofstream FILE("eventSystem.txt");
 					for (auto it=system->event_messedge.begin(); it!= system->event_messedge.end(); ++it)
 					{
 										
@@ -26,7 +26,7 @@ namespace Core
 					FILE << system->event_messedge.size();
 					std::cout << system->event_messedge.size();
 					FILE.close();
-					std::cout << system->events.size();
+					std::cout << system->events.size();*/
 				}
 				std::cout << e.format() << std::endl;
 				system->addEvent(e);
