@@ -21,16 +21,20 @@ namespace Net
 		info.sin_addr.s_addr = inet_addr(ipaddress.c_str());
 
 		std::cout << "WSA init\n";
-		assert(!(WSAStartup(MAKEWORD(2,2), &wsa)) && "COULDN'T INIT WSA");
+		if (WSAStartup(MAKEWORD(2, 2), &wsa))
+		{
+			std::cout << "COULDN'T INIT WSA\n";
+		}
+		//assert(!(WSAStartup(MAKEWORD(2,2), &wsa)) && "COULDN'T INIT WSA");
 		std::cout << "WSA success\n";
 
 
 		std::cout << "SOCKET creating\n";
-		assert(!(serversocket = socket(AF_INET, SOCK_DGRAM, 0)== SOCKET_ERROR) && "COULDN'T CREATE SOCKET");
+		assert(!((serversocket = socket(AF_INET, SOCK_DGRAM, 0)) == SOCKET_ERROR) && "COULDN'T CREATE SOCKET");
 		std::cout << "SOCKET success\n";
 
 		std::cout << "SOCKET bind\n";
-		assert(!(bind(serversocket, (struct sockaddr*) & info, infoLengh))&& "COULDN'T BIND SOCKET");
+		assert(!(bind(serversocket, (struct sockaddr*) & info, infoLengh)) && "COULDN'T BIND SOCKET");
 		std::cout << "SOCKET binded\n";
 
 		std::cout << "server started " << inet_ntoa(info.sin_addr) << " : " << ntohs(info.sin_port);
@@ -38,7 +42,7 @@ namespace Net
 
 	void Server::start()
 	{
-		int();
+		init();
 		for (;;)
 		{
 			receive();
@@ -48,6 +52,7 @@ namespace Net
 	}
 	void Server::receive()
 	{
+
 		if ((reciveleng = recvfrom(serversocket, buffer, SIZE, 0, (struct sockaddr*) & info, &infoLengh)) == SOCKET_ERROR) 
 		{
 			std::cout << " recv() failed...  " << reciveleng  << ":"<<WSAGetLastError();
@@ -78,8 +83,9 @@ namespace Net
 
 	Server::~Server()
 	{
-		WSACleanup();
+		
 		closesocket(serversocket);
+		WSACleanup();
 	}
 
 }
