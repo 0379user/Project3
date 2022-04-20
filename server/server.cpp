@@ -66,6 +66,7 @@ namespace Net
 		{
 			std::cout << buffer[i];
 		}
+		std::cout << std::endl;
 	}
 	void Server::send()
 	{

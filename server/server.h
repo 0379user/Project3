@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <WinSock2.h>
 
+
 #pragma comment(lib, "Ws2_32.lib")
 
 #define SIZE 1024
@@ -31,8 +32,8 @@ public:
 public:
 	void start();
 	void stop();
-	void init();
 private:
+	void init();
 	void receive();
 	void send();
 	void proccess();
