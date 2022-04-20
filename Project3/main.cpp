@@ -24,10 +24,19 @@ int main()
 	//Core::Event* e = new Core::MouseScrolledEvent(1);
 	//system.addEvent(e);
 
-	//assert(Core::Util::isLittleEndian());
+	assert(Core::Util::isLittleEndian());
+	int16_t f = 55;
 
-	int foo = 5;
-	Core::Root* r = Core::Primitive::create("int32", Core::Type::I32, foo);
+	Core::Root* r = Core::Primitive::create("primiteve", Core::Type::I16, f);
 	Core::Util::retriveNsave(r);
+
+	/*std::vector<int64_t> data{ 1,2,3,4 };
+	Core::Array* r = Core::Array::createArray("arr", Core::Type::I64, data);
+	Core::Util::retriveNsave(r);
+
+	std::string str="name";
+	Core::Root* rt = Core::Array::createString("string", Core::Type::I8, str);
+	Core::Util::retriveNsave(rt);*/
+	//std::cout << sizeof(*rt);
 	return 0;
 }

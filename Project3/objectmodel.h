@@ -10,33 +10,14 @@ namespace Core
 
 	namespace Util
 	{
-		bool isLittleEndian()
-		{
-			int8_t a = 5; // 0101
-			std::string result = std::bitset<8>(a).to_string();
-			if (result.back() == '1')
-				return true;
-		}
+		bool isLittleEndian();
 
-		void save(const  char* file, std::vector<int8_t> buffer)
-		{
-			std::ofstream out(file);
-			for (unsigned i = 0; i < buffer.size(); i++)
-			{
-				out << buffer[i];
-			}
-			out.close();
-		}
+		void save(const  char* file, std::vector<int8_t> buffer);
 		
-		void retriveNsave(Core::Root* r)
-		{
-			int16_t iterator = 0;
-			std::vector<int8_t> buffer(r->getSize());
-			std::string name = r->getName().substr(0, r->getName().size()).append(".ttc");
-			r->pack(&buffer, &iterator);
-			save(name.c_str(), buffer);
-		}
+		void retriveNsave(Root* r);
 	}
+
+	//TEMPLATES
 	template<typename T>
 	void encode(std::vector<int8_t>* buffer, int16_t* iterator, T value)
 	{
@@ -73,7 +54,7 @@ namespace Core
 			encode<T>(buffer, iterator, value[i]);
 		}
 	}
-
+	//TEMPLATES
 	
 	enum class Wrapper : int8_t
 	{
@@ -113,7 +94,6 @@ public:
 	int32_t getSize();
 	void setName(std::string str);
 	std::string getName();
-
 };
 
 
@@ -145,25 +125,47 @@ public:
 class Array : public Root
 {
 public:
-	Array() {}
+	Array();
+
 	template<typename T>
-	static Array createArray(std::string name, Type type, std::vector<T> value)
+	static Array* createArray(std::string name, Type type, std::vector<T> value)
 	{
 		Array* p = new Array();
 		p->setName(name);
 		p->wrapper = static_cast<int8_t>(Wrapper::ARRAY);
 		p->type = static_cast<int8_t>(type);
-		p->data = new std::vector<int8_t>(value.size()*sizeof(value));
-		p->size += value.size() * sizeof(value);
+		p->count = value.size();
+		p->data = new std::vector<int8_t>(p->count * sizeof(T));
+		p->size += value.size() * sizeof(T);
+		
 		int16_t iterator = 0;
 		Core::template encode<T>(p->data, &iterator, value);
 
 		return p;
 	}
+
+	template<typename T>
+	static Array* createString(std::string name, Type type, T value)
+	{
+		Array* str = new Array();
+		str->setName(name);
+		str->wrapper = static_cast<int8_t>(Wrapper::STRING);
+		str->type = static_cast<int8_t>(type);
+		str->data = new std::vector<int8_t>(value.size());
+		str->size += value.size();
+		str->count = value.size();
+		int16_t iterator = 0;
+		Core::template encode<T>(str->data, &iterator, value);
+
+		return str;
+	}
+
+
+	void   pack(std::vector<int8_t>* buffer, int16_t* iterator);
 private:
-	int8_t type;
-	int32_t count;
-	std::vector<int8_t>* data;
+	int8_t type=0;
+	int32_t count=0;
+	std::vector<int8_t>* data=nullptr;
 };
 
 class Object : public Root
@@ -180,6 +182,37 @@ class Object : public Root
 
 namespace Core
 {
+	namespace Util
+	{
+		bool isLittleEndian()
+		{
+			int8_t a = 5; // 0101
+			std::string result = std::bitset<8>(a).to_string();
+			if (result.back() == '1')
+				return true;
+		}
+
+		void save(const  char* file, std::vector<int8_t> buffer)
+		{
+			std::ofstream out(file);
+			for (unsigned i = 0; i < buffer.size(); i++)
+			{
+				out << buffer[i];
+			}
+			out.close();
+		}
+
+		void retriveNsave(Root* r)
+		{
+			int16_t iterator = 0;
+			std::vector<int8_t> buffer(r->getSize());
+			std::string name = r->getName().substr(0, r->getName().size()).append(".abc");
+			r->pack(&buffer, &iterator);
+			save(name.c_str(), buffer);
+		}
+	
+	}
+
    	Root::Root()
 		:
 		name("unknown"),
@@ -207,6 +240,8 @@ namespace Core
 		return name;
 	}
 
+
+
 	Primitive::Primitive()
 	{
 		size += sizeof(type);
@@ -222,6 +257,21 @@ namespace Core
 
 	}
 
+	Array::Array()
+	{
+		size += sizeof(type) + sizeof(count);
+	}
 
+	void  Array::pack(std::vector<int8_t>* buffer, int16_t* iterator)
+	{
+		Core::encode<std::string>(buffer, iterator, name);
+		Core::encode<int16_t>(buffer, iterator, nameLenhgt);
+		Core::encode<int8_t>(buffer, iterator, wrapper);
+		Core::encode<int8_t>(buffer, iterator, type);
+		Core::encode<int32_t>(buffer, iterator, count);
+		Core::encode<int8_t>(buffer, iterator, *data);
+		Core::encode<int32_t>(buffer, iterator, size);
+
+	}
 	
 }
