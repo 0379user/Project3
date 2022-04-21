@@ -23,7 +23,7 @@ int main()
 	
 
 	assert(Core::Util::isLittleEndian());
-
+#if 0
 	std::vector<int16_t> vec{ 1,2,3,4 };
 	Core::Root* r = Core::Array::createArray("ARRAY", Core::Type::I16, vec);
 	std::string str = "dddd";
@@ -36,8 +36,10 @@ int main()
 
 	Core::Util::retriveNsave(&Test);
 
+#endif
 
-
-
+	Core::System system("SyS_serialization");
+	Core::Event* e = new Core::MouseButtonPressedEvent(1);
+	system.s
 	return 0;
 }

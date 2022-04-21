@@ -1,7 +1,7 @@
 #pragma once
 #include "system.h"
 #include <string>
-
+#include <random>
 namespace Core
 {
 	class System;
@@ -20,6 +20,8 @@ namespace Core
 			WINDOW_RESIZED_EVENT,
 			WINDOW_CLOSE_EVENT
 		};
+	private:
+		int32_t ID;
 	protected:
 		EventType type;
 		std::string name;
@@ -28,11 +30,19 @@ namespace Core
 		Event(std::string name, EventType type)
 			:
 			name(name),
-			type(type){}
+			type(type)
+		{
+		//random
+			std::random_device rd;
+			std::uniform_int_distribution<> destr(1, 100);
+			this->ID = destr(rd);
+		
+		}
 	public:
 		virtual ~Event() = default;
 		inline std::string getName()const { return name; }
 		inline EventType getType()const { return type; }
+		int32_t getID() { return ID; }
 		/*void bind(System* system, Event* e) 
 		{
 			this->system = system;

@@ -3,7 +3,7 @@
 #include "event.h"
 #include <string>
 #include <vector>
-
+#include "objectmodel.h"
 
 namespace Core
 {
@@ -18,7 +18,7 @@ namespace Core
 		void addEvent(Event&);
 		Event* getEvent();
 		//std::vector<std::string> event_messege;
-		 
+		void serialize();
 	private:
 		std::vector<Event*> events;
 		std::string name;
