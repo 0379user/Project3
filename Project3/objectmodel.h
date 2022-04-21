@@ -13,7 +13,7 @@ namespace Core
 		bool isLittleEndian();
 
 		void save(const  char* file, std::vector<int8_t> buffer);
-		
+
 		void retriveNsave(Root* r);
 	}
 
@@ -55,17 +55,17 @@ namespace Core
 		}
 	}
 	//TEMPLATES
-	
+
 	enum class Wrapper : int8_t
 	{
-	PRIMITIVE=1,
-	ARRAY,
-	STRING,
-	OBJECT	
+		PRIMITIVE = 1,
+		ARRAY,
+		STRING,
+		OBJECT
 	};
 	enum class Type : int8_t
 	{
-		I8=1,
+		I8 = 1,
 		I16,
 		I32,
 		I64,
@@ -81,97 +81,108 @@ namespace Core
 		BOOL
 	};
 
-class Root
-{
-protected:
-	std::string name;
-	int16_t nameLenhgt;
-	int8_t wrapper;
-	int32_t size;
-	Root();
-public:
-	void virtual pack(std::vector<int8_t>*, int16_t *);
-	int32_t getSize();
-	void setName(std::string str);
-	std::string getName();
-};
-
-
-class Primitive : public Root
-{
-private:
-	int8_t type = 0;
-	std::vector<int8_t>* data=nullptr;
-private:
-	Primitive();
-public:
-	void pack(std::vector<int8_t>*, int16_t*);
-	template<typename T>
-	static Primitive* create(std::string name, Type type, T value)
+	class Root
 	{
-		Primitive* p = new Primitive();
-		p->setName(name);
-		p->wrapper = static_cast<int8_t>(Wrapper::PRIMITIVE);
-		p->type = static_cast<int8_t>(type);
-		p->data = new std::vector<int8_t>(sizeof(value));
-		p->size += p->data->size();
-		int16_t iterator = 0;
-		Core::template encode<T>(p->data, &iterator, value);
+	protected:
+		std::string name;
+		int16_t nameLenhgt;
+		int8_t wrapper;
+		int32_t size;
+		Root();
+	public:
+		void virtual pack(std::vector<int8_t>*, int16_t*);
+		int32_t getSize();
+		void setName(std::string str);
+		std::string getName();
+		virtual ~Root() {}
+	};
 
-		return p;
-	}
-};
 
-class Array : public Root
-{
-public:
-	Array();
-
-	template<typename T>
-	static Array* createArray(std::string name, Type type, std::vector<T> value)
+	class Primitive : public Root
 	{
-		Array* p = new Array();
-		p->setName(name);
-		p->wrapper = static_cast<int8_t>(Wrapper::ARRAY);
-		p->type = static_cast<int8_t>(type);
-		p->count = value.size();
-		p->data = new std::vector<int8_t>(p->count * sizeof(T));
-		p->size += value.size() * sizeof(T);
-		
-		int16_t iterator = 0;
-		Core::template encode<T>(p->data, &iterator, value);
+	private:
+		int8_t type = 0;
+		std::vector<int8_t>* data = nullptr;
+	private:
+		Primitive();
+	public:
+		void pack(std::vector<int8_t>*, int16_t*);
+		template<typename T>
+		static Primitive* create(std::string name, Type type, T value)
+		{
+			Primitive* p = new Primitive();
+			p->setName(name);
+			p->wrapper = static_cast<int8_t>(Wrapper::PRIMITIVE);
+			p->type = static_cast<int8_t>(type);
+			p->data = new std::vector<int8_t>(sizeof(value));
+			p->size += p->data->size();
+			int16_t iterator = 0;
+			Core::template encode<T>(p->data, &iterator, value);
 
-		return p;
-	}
+			return p;
+		}
+	};
 
-	template<typename T>
-	static Array* createString(std::string name, Type type, T value)
+	class Array : public Root
 	{
-		Array* str = new Array();
-		str->setName(name);
-		str->wrapper = static_cast<int8_t>(Wrapper::STRING);
-		str->type = static_cast<int8_t>(type);
-		str->data = new std::vector<int8_t>(value.size());
-		str->size += value.size();
-		str->count = value.size();
-		int16_t iterator = 0;
-		Core::template encode<T>(str->data, &iterator, value);
+	public:
+		Array();
 
-		return str;
-	}
+		template<typename T>
+		static Array* createArray(std::string name, Type type, std::vector<T> value)
+		{
+			Array* p = new Array();
+			p->setName(name);
+			p->wrapper = static_cast<int8_t>(Wrapper::ARRAY);
+			p->type = static_cast<int8_t>(type);
+			p->count = value.size();
+			p->data = new std::vector<int8_t>(p->count * sizeof(T));
+			p->size += value.size() * sizeof(T);
+
+			int16_t iterator = 0;
+			Core::template encode<T>(p->data, &iterator, value);
+
+			return p;
+		}
+
+		template<typename T>
+		static Array* createString(std::string name, Type type, T value)
+		{
+			Array* str = new Array();
+			str->setName(name);
+			str->wrapper = static_cast<int8_t>(Wrapper::STRING);
+			str->type = static_cast<int8_t>(type);
+			str->data = new std::vector<int8_t>(value.size());
+			str->size += value.size();
+			str->count = value.size();
+			int16_t iterator = 0;
+			Core::template encode<T>(str->data, &iterator, value);
+
+			return str;
+		}
 
 
-	void   pack(std::vector<int8_t>* buffer, int16_t* iterator);
-private:
-	int8_t type=0;
-	int32_t count=0;
-	std::vector<int8_t>* data=nullptr;
-};
+		void   pack(std::vector<int8_t>* buffer, int16_t* iterator);
+	private:
+		int8_t type = 0;
+		int32_t count = 0;
+		std::vector<int8_t>* data = nullptr;
+	};
 
-class Object : public Root
-{
+	class Object : public Root
+	{
+	private:
+		std::vector<Root*> entities;
+		int16_t count = 0;;
+	public:
+		Object(std::string name);
 
-};
+	public:
+		void addEntitie(Root* r);
+		void pack(std::vector<int8_t>* buffer, int16_t* iterator);
+		Root* findByName(std::string);
+
+	};
 
 }
 
@@ -194,7 +205,8 @@ namespace Core
 
 		void save(const  char* file, std::vector<int8_t> buffer)
 		{
-			std::ofstream out(file);
+			std::ofstream out;
+			out.open(file, std::ios::app);
 			for (unsigned i = 0; i < buffer.size(); i++)
 			{
 				out << buffer[i];
@@ -210,10 +222,10 @@ namespace Core
 			r->pack(&buffer, &iterator);
 			save(name.c_str(), buffer);
 		}
-	
+
 	}
 
-   	Root::Root()
+	Root::Root()
 		:
 		name("unknown"),
 		wrapper(0),
@@ -273,5 +285,48 @@ namespace Core
 		Core::encode<int32_t>(buffer, iterator, size);
 
 	}
+
+
+
+	Object::Object(std::string name)
+	{
+		setName(name);
+		wrapper = static_cast<int8_t>(Wrapper::OBJECT);
+		size += sizeof(count);
+	}
+
+
+	void Object::addEntitie(Root* r)
+	{
+		this->entities.push_back(r);
+		count += 1;
+		size += r->getSize();
+	}
+	void Object::pack(std::vector<int8_t>* buffer, int16_t* iterator) 
+	{
+		Core::encode<std::string>(buffer, iterator, name);
+		Core::encode<int16_t>(buffer, iterator, nameLenhgt);
+		Core::encode<int8_t>(buffer, iterator, wrapper);
+		Core::encode<int32_t>(buffer, iterator, count);
 	
+		for (Root* r : entities)
+		{
+			r->pack(buffer, iterator);
+		}
+		Core::encode<int16_t>(buffer, iterator, size);
+	}
+
+	Root* Object::findByName(std::string name)
+	{
+		for (auto& r : entities)
+		{
+			if (r->getName() == name)
+			{
+				return r;
+			}
+		}
+		std::cout << "not found";
+		return new Object("ERROR: NOT FOUND");
+	}
+
 }

@@ -20,23 +20,24 @@ int main()
 	}
 
 #endif
-	//Core::System system("sys");
-	//Core::Event* e = new Core::MouseScrolledEvent(1);
-	//system.addEvent(e);
+	
 
 	assert(Core::Util::isLittleEndian());
-	int16_t f = 55;
 
-	Core::Root* r = Core::Primitive::create("primiteve", Core::Type::I16, f);
-	Core::Util::retriveNsave(r);
+	std::vector<int16_t> vec{ 1,2,3,4 };
+	Core::Root* r = Core::Array::createArray("ARRAY", Core::Type::I16, vec);
+	std::string str = "dddd";
+	Core::Root* f = Core::Array::createString("STRING", Core::Type::I8, str);
 
-	/*std::vector<int64_t> data{ 1,2,3,4 };
-	Core::Array* r = Core::Array::createArray("arr", Core::Type::I64, data);
-	Core::Util::retriveNsave(r);
+	Core::Object Test("TEST");
 
-	std::string str="name";
-	Core::Root* rt = Core::Array::createString("string", Core::Type::I8, str);
-	Core::Util::retriveNsave(rt);*/
-	//std::cout << sizeof(*rt);
+	Test.addEntitie(r);
+	Test.addEntitie(f);
+
+	Core::Util::retriveNsave(&Test);
+
+
+
+
 	return 0;
 }
