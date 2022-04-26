@@ -12,6 +12,7 @@
 
 #define SIZE 1024
 
+
 namespace Net
 {
 class Server

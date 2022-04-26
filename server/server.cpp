@@ -3,6 +3,7 @@
 
 #pragma warning(disable: 4996)
 
+
 namespace Net
 {
 	Server::Server(int port, std::string ipaddress)
@@ -12,9 +13,10 @@ namespace Net
 		ipaddress(ipaddress),
 		serversocket(INVALID_SOCKET),
 		info{0},
-		infoLengh(sizeof(info)){}
+		infoLengh(sizeof(info))
+		{}
 
-		void Server::init()
+	void Server::init()
 	{
 		info.sin_family = AF_INET;
 		info.sin_port = htons(port);
@@ -50,6 +52,7 @@ namespace Net
 			send();
 		}
 	}
+
 	void Server::receive()
 	{
 
@@ -59,6 +62,7 @@ namespace Net
 			exit(EXIT_FAILURE);
 		}
 	}
+
 	void Server::proccess()
 	{
 		std::cout << "packet from  " << inet_ntoa(info.sin_addr) << " : " << ntohs(info.sin_port);
@@ -68,6 +72,7 @@ namespace Net
 		}
 		std::cout << std::endl;
 	}
+
 	void Server::send()
 	{
 		if ((sendto(serversocket, buffer, reciveleng, 0, (struct sockaddr*)& info, infoLengh)) == SOCKET_ERROR)
@@ -76,9 +81,9 @@ namespace Net
 			exit(EXIT_FAILURE);
 		}
 	}
+
 	void Server::stop()
 	{
-	
 	
 	}
 
