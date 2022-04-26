@@ -1,9 +1,9 @@
 #pragma once
 #include <iostream>
-#include "event.h"
+//#include "event.h"
 #include <string>
 #include <vector>
-#include "objectmodel.h"
+  
 
 namespace Core
 {

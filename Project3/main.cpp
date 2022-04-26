@@ -1,11 +1,15 @@
 #include <iostream>
 #include <string>
-#include"include/GLFW/glfw3.h"
-#include "window.h"
-#include "system.h"
-#include "mouseevent.h"
-#include "objectmodel.h"
 #include <assert.h>
+#include"include/GLFW/glfw3.h"
+
+#include "window.h"
+#include "mouseevent.h"
+
+//#include "system.h"
+#include "objectmodel.h"
+
+#pragma warning( disable : 4098 )
 
 int main()
 {
@@ -22,8 +26,8 @@ int main()
 #endif
 	
 
-	assert(Core::Util::isLittleEndian());
-#if 0
+	//assert(Core::Util::isLittleEndian());
+#if 1
 	std::vector<int16_t> vec{ 1,2,3,4 };
 	Core::Root* r = Core::Array::createArray("ARRAY", Core::Type::I16, vec);
 	std::string str = "dddd";
@@ -38,8 +42,6 @@ int main()
 
 #endif
 
-	Core::System system("SyS_serialization");
-	Core::Event* e = new Core::MouseButtonPressedEvent(1);
-	system.s
+
 	return 0;
 }

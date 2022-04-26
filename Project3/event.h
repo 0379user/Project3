@@ -1,6 +1,6 @@
 #pragma once
 
-#include "system.h"
+//#include "system.h"
 #include <string>
 #include <random>
 
@@ -39,7 +39,6 @@ namespace Core
 			std::random_device rd;
 			std::uniform_int_distribution<> destr(1, 100);
 			this->ID = destr(rd);
-		
 		}
 	public:
 		virtual ~Event() = default;

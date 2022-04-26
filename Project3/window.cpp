@@ -5,8 +5,12 @@
 #include "windoweven.h"
 #include <fstream>
 
+#include "system.h"
+
 namespace Core
 {
+	
+
 	Window::Window(const std::string& str, int w, int h)
 	{
 		init(str, w, h);
@@ -29,7 +33,7 @@ namespace Core
 					std::cout << system->events.size();*/
 				}
 				std::cout << e.format() << std::endl;
-				system->addEvent(e);
+				//system->addEvent(e);
 			});
 	}
 

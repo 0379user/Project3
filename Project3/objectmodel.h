@@ -4,6 +4,7 @@
 #include <bitset>
 #include <fstream>
 
+
 namespace Core
 {
 	class Root;
@@ -173,7 +174,7 @@ namespace Core
 	{
 	private:
 		std::vector<Root*> entities;
-		int16_t count = 0;;
+		int16_t count = 0;
 	public:
 		Object(std::string name);
 
@@ -190,7 +191,6 @@ namespace Core
 
 
 
-
 namespace Core
 {
 	namespace Util
@@ -200,7 +200,10 @@ namespace Core
 			int8_t a = 5; // 0101
 			std::string result = std::bitset<8>(a).to_string();
 			if (result.back() == '1')
+			{
 				return true;
+			}
+			return false;
 		}
 
 		void save(const  char* file, std::vector<int8_t> buffer)
@@ -302,13 +305,13 @@ namespace Core
 		count += 1;
 		size += r->getSize();
 	}
-	void Object::pack(std::vector<int8_t>* buffer, int16_t* iterator) 
+	void Object::pack(std::vector<int8_t>* buffer, int16_t* iterator)
 	{
 		Core::encode<std::string>(buffer, iterator, name);
 		Core::encode<int16_t>(buffer, iterator, nameLenhgt);
 		Core::encode<int8_t>(buffer, iterator, wrapper);
 		Core::encode<int32_t>(buffer, iterator, count);
-	
+
 		for (Root* r : entities)
 		{
 			r->pack(buffer, iterator);

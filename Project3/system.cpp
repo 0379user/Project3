@@ -1,8 +1,11 @@
 #include "system.h"
 #include "keyboardevent.h"
+//#include "objectmodel.h"
+#include "event.h"
 
 namespace Core 
 {
+	
 System::System(std::string str)
 	:
 	name(str),
@@ -28,7 +31,7 @@ Event* System::getEvent()
  
 void System::serialize()
 {
-	Core::Object system("SysInfo");
+	/*Core::Object system("SysInfo");
 	Core::Array* name = Core::Array::createString("sysName", Core::Type::I8, this->name);
 	Core::Primitive* desc = Core::Primitive::create("disc", Core::Type::I32, this->descriptor);
 	Core::Primitive* index = Core::Primitive::create("index", Core::Type::I16, this->index);
@@ -36,11 +39,11 @@ void System::serialize()
 	system.addEntitie(name);
 	system.addEntitie(desc);
 	system.addEntitie(index);
-	system.addEntitie(active);
+	system.addEntitie(active);*/
 
 	for(Event * e: events)
 	{ 
-		Core::KeyPressedEvent* kb = static_cast<KeyPressedEvent*>(e);
+		/*Core::KeyPressedEvent* kb = static_cast<KeyPressedEvent*>(e);*/
 		
 	}
 }
