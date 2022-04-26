@@ -1,7 +1,10 @@
 #pragma once
+
 #include "system.h"
 #include <string>
 #include <random>
+
+
 namespace Core
 {
 	class System;

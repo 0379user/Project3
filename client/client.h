@@ -8,9 +8,12 @@
 #include <WinSock2.h>
 #include <string>
 
+
 #pragma comment(lib, "Ws2_32.lib")
 
+
 #define SIZE 1024
+
 
 namespace Net
 {

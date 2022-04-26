@@ -1,7 +1,10 @@
 #include "client.h"
 #include <iostream>
 
+
+
 #pragma warning(disable: 4996)
+
 
 namespace Net
 {
@@ -12,7 +15,9 @@ namespace Net
 		ipaddress(ipaddress),
 		clientsocket(INVALID_SOCKET),
 		info{ 0 },
-		infoLengh(sizeof(info)){}
+		infoLengh(sizeof(info))
+	{}
+
 
 	void Client::init()
 	{
@@ -63,6 +68,7 @@ namespace Net
 			proccess();
 		}
 	}
+
 	void Client::receive()
 	{
 
@@ -72,6 +78,7 @@ namespace Net
 			exit(EXIT_FAILURE);
 		}
 	}
+
 	void Client::proccess()
 	{
 		std::cout << "packet from  " << inet_ntoa(info.sin_addr) << " : " << ntohs(info.sin_port);
