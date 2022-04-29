@@ -20,20 +20,9 @@ namespace Core
 				if (e.getType() == Event::EventType::WINDOW_CLOSE_EVENT)
 				{
 					glfwSetWindowShouldClose(window, GL_TRUE);
-
-					/*std::ofstream FILE("eventSystem.txt");
-					for (auto it=system->event_messedge.begin(); it!= system->event_messedge.end(); ++it)
-					{
-										
-						FILE <<* it << std::endl;
-					}
-					FILE << system->event_messedge.size();
-					std::cout << system->event_messedge.size();
-					FILE.close();
-					std::cout << system->events.size();*/
 				}
 				std::cout << e.format() << std::endl;
-				//system->addEvent(e);
+				 
 			});
 	}
 
@@ -123,7 +112,8 @@ namespace Core
 		  handle.width = wight;
 		  handle.fnCallback(e);
 	  }
-	    void Window::windowClosedCallback(GLFWwindow* window)
+
+	   void Window::windowClosedCallback(GLFWwindow* window)
 		{
 			auto& handle = *(Window*)glfwGetWindowUserPointer(window);
 			WindowClosedEvent e;

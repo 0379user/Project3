@@ -26,7 +26,8 @@ int main()
 #endif
 	
 
-	//assert(Core::Util::isLittleEndian());
+	assert(Core::Util::isLittleEndian());
+
 #if 1
 	std::vector<int16_t> vec{ 1,2,3,4 };
 	Core::Root* r = Core::Array::createArray("ARRAY", Core::Type::I16, vec);
